@@ -1,1 +1,54 @@
-var a=document.getElementById("snow"),d=a.getContext("2d"),e=[],f=Math;a.style.pointerEvents="none";a.style.position="fixed";a.style.width="100vw";a.style.height="100vh";a.height=a.offsetHeight;a.width=a.offsetWidth;window.onresize=function(){a.height=a.offsetHeight;a.width=a.offsetWidth}; setInterval(function(){d.clearRect(0,0,a.width,a.height);d.beginPath();if(.3<f.random()){var b=f.random(),g=.05+.95*b,c={};c.x=1.5*a.width*f.random()-.5*a.width;c.y=-9;c.c=2*g*(f.random()/2+.5);c.d=5*g;c.a=5*b;c.b=function(){var t=this;t.x+=t.c;t.y+=t.d;d.beginPath();d.arc(t.x,t.y,t.a,0,2*f.PI,!1);d.fillStyle="#FFF";d.fill()};e.push(c)}for(b=0;b<e.length;b++)e[b].y>a.height?e.splice(b,1):e[b].b()},16);
+(function(){
+    var canvas = document.getElementById("snow");
+    var ctx = canvas.getContext("2d");
+    var flakeArray = [];
+
+    canvas.style.pointerEvents = "none";
+    canvas.style.position = "fixed";
+    canvas.style.top = 0;
+    canvas.style.left = 0;
+    canvas.style.width = "100vw";
+    canvas.style.height = "100vh";
+
+    function canvasResize(){
+        canvas.height = canvas.offsetHeight;
+        canvas.width = canvas.offsetWidth;
+    }
+    canvasResize();
+
+    window.onresize = function() {
+        canvasResize();
+    };
+
+    var MyMath = Math;
+
+    setInterval(function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+
+        var random = MyMath.random();
+        var distance = .05 + .95 * random;
+        
+        flake = {};
+        flake.x = 1.5 * canvas.width * MyMath.random() - .5 * canvas.width;
+        flake.y = -9;
+        flake.velX = 2 * distance * (MyMath.random() / 2 + .5);
+        flake.velY = (4 + 2 * MyMath.random()) * distance;
+        flake.radius = MyMath.pow(5 * random, 2) / 5;
+        flake.update = function() {
+            var t = this;
+            t.x += t.velX;
+            t.y += t.velY;
+            ctx.beginPath();
+            ctx.arc(t.x, t.y, t.radius, 0, 2 * MyMath.PI, !1);
+            ctx.fillStyle = "#FFF";
+            ctx.fill()
+        };
+
+        flakeArray.push(flake);
+
+        for (b = 0; b < flakeArray.length; b++) {
+            flakeArray[b].y > canvas.height ? flakeArray.splice(b, 1) : flakeArray[b].update()
+        }
+    }, 16);
+})();
