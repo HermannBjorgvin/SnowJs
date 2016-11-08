@@ -1,4 +1,5 @@
 SnowJs
+###A seasonal repository
 ======
 
 Small Javascript snippet under a kilobyte that adds snow to your website
