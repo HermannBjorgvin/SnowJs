@@ -9,6 +9,8 @@
     canvas.style.left = 0;
     canvas.style.width = "100vw";
     canvas.style.height = "100vh";
+    canvas.style.zIndex = 1;
+    canvas.style.userSelect = "none";
 
     function canvasResize(){
         canvas.height = canvas.offsetHeight;
@@ -28,7 +30,7 @@
 
         var random = MyMath.random();
         var distance = .05 + .95 * random;
-        
+
         flake = {};
         flake.x = 1.5 * canvas.width * MyMath.random() - .5 * canvas.width;
         flake.y = -9;
